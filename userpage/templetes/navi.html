@@ -1,0 +1,38 @@
+<div class="container-fluid-lg">
+  <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img
+          src="https://img.freepik.com/free-photo/chat-messages-left-side-white-background_187299-40137.jpg?size=626&ext=jpg&ga=GA1.1.258169885.1724764334&semt=ais_hybrid"
+          alt="Bootstrap" width="30" height="24">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'post' %}">post</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">profile</a>
+          </li>
+          {% endif %}
+        </ul>
+        <div>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="btn btn-danger" type="submit">logout</a>
+          {% else %}
+          <a href="{% url 'login' %}" class="btn btn-success mx=2" type="submit">login</a>
+          <a href="{% url 'register' %}" class="btn btn-success" type="submit">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

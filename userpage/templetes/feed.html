@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>feed</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+  {% include 'navi.html' %}
+  <h1 class="text-center">Feed</h1>
+  <div class="container col-lg-7">
+    <div class="row row-cols-1 row-cols-lg-3">
+    {% for record in data %}
+    <div class="col">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        <div class="h3">
+          <!--a href="{% url 'profile' %}" class="link-dark link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover ">{{ record.person }}</a-->
+          {{ record.person }}
+        </div>
+        <small>{{ record.date }}</small>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ record.tile }}</h5>
+        <div class="text-center" style="width:250px; height:200px; align-items: center;">
+        <img src="{{ record.image.url }}" width="200" height="200" alt="" class="object-fit-cover border rounded img-fluid">
+      </div>
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ record.caption | truncatechars:5 }}</p>
+        {% if request.user.is_authenticated %}
+        <div class="d-flex justify-content-start">
+          <a href="{% url 'single' record.id %}" class="btn btn-primary mx-2">View</a>
+          {% if request.user.is_superuser %}
+          <div class="d-flex justify-content-end">
+            <a href="{% url 'update' record.id %}" class="btn btn-primary mx-2">update</a>
+            <a href="{% url 'delete' record.id %}" class="btn btn-danger">delete</a>
+          </div>
+          {% endif %}
+        </div>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary">View</a>
+        {% endif %}
+      </div>
+    </div>
+    <br>
+    </div>
+    <br>
+    {% endfor %}
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
